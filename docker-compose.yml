@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: moment_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+  
+  app:
+    image: php:8.0-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
